@@ -1,0 +1,11 @@
+---
+- name: Test playbook for ignoring errors!
+  hosts: webservers 
+  tasks:
+
+    - name: Copy remote files
+      fetch:
+        src: /tmp/errorFile
+        dest: /tmp
+      ignore_errors: yes
+...

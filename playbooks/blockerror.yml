@@ -1,0 +1,20 @@
+---
+- name: Testing how to ignore errors using a block!
+  hosts: webservers
+  tasks:
+
+    - name: copy remote files
+      block:
+        - fetch:
+            src: /tmp/blockFile
+            dest: /tmp
+      rescue:
+        - debug:
+            msg: "The file does not exist on {{ ansible_hostname }}."
+      always:
+        - debug:
+            msg: "Playbook is finished!"
+...
+
+
+

@@ -13,3 +13,7 @@ mhost4
 [webservers:vars]
 package_name= httpd
 service_name= httpd
+
+[dbservers:vars]
+service_name= postgresql
+package_name= postgresql-server
