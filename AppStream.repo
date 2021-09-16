@@ -1,0 +1,5 @@
+[AppStream]
+name=AppStream
+baseurl=file:///media/AppStream
+gpgcheck=0
+enabled=1

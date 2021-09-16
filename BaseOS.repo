@@ -1,0 +1,5 @@
+[BaseOS]
+name=BaseOS
+baseurl=file:///media/BaseOS
+gpgcheck=0
+enabled=1

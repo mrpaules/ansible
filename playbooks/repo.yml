@@ -1,0 +1,66 @@
+---
+- name: This Playbook creates the repos needed for software installs.
+  hosts: all 
+  tasks:
+
+  - name: Mount media DVD and add entry into fstab
+    mount:
+      path: /media
+      src: /dev/sr0
+      fstype: iso9660
+      opts: ro,noauto
+      state: mounted
+  
+  
+  - name: List files before changes!
+    shell:    
+      cmd: ls -la /etc/yum.repos.d/
+    register: output_shell0
+
+  - name: Get files to delete
+    find: 
+      paths: /etc/yum.repos.d/
+      patterns: '*.repo'
+    register: files_to_delete
+
+  - name: Deleting the files
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"
+
+  - name: List files after changes!    
+    shell:
+      cmd: ls -la /etc/yum.repos.d/
+    register: output_shell
+
+  - name: Just checking if all is well!
+    debug:
+      msg: 
+        - "{{ output_shell0 }}" 
+        - "{{ output_shell }}" 
+
+  - name: Copy BaseOS Repo files to remote servers!
+    copy:
+      src: /home/ansible/ansible/BaseOS.repo
+      dest: /etc/yum.repos.d/
+      owner: root
+      group: root
+      mode: u=rw,g=r,o=r
+
+  - name: Copy AppStream Repo files to remote servers!
+    copy:
+      src: /home/ansible/ansible/AppStream.repo
+      dest: /etc/yum.repos.d/
+      owner: root
+      group: root
+      mode: u=rw,g=r,o=r
+  
+  - name: Double check if files are copied!
+    shell: "ls -la /etc/yum.repos.d/"
+    register: output_shell2
+
+  - name: Checking the output from copied files!
+    debug:
+      msg: "{{ output_shell2 }}"
+...

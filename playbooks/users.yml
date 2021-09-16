@@ -1,0 +1,17 @@
+---
+- name: We are creating users on the file server
+  hosts: all
+  tasks:
+
+  - name: Creating the users using a loop
+    user:
+      name: "{{ item }}"
+      state: present
+      groups: wheel
+    loop:
+      - sikhumbuzo
+      - phindile
+      - ayanda
+    when: ansible_hostname == "mhost4"
+...
+   

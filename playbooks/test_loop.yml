@@ -1,0 +1,21 @@
+---
+- name: Testing Loops
+  hosts: all
+  vars:
+    packages:
+      - wget
+      - nano
+  tasks:    
+
+  - name: Installing the packages
+    yum:
+      name: "{{ item }}"
+      state: latest
+    loop: "{{ packages }}"
+
+  - name: Removing the packages
+    yum:
+      name: "{{ item }}"
+      state: absent
+    loop: "{{ packages }}"
+...

@@ -1,0 +1,5 @@
+#!/bin/bash
+#Script to copy ssh keys
+for i in `cat inventory`
+do scp ansible root@$i:/etc/sudoers.d/ 
+done

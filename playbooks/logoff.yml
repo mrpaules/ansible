@@ -1,0 +1,9 @@
+---
+- name: This Playbook shuts down all the servers.
+  hosts: all
+  tasks:
+
+  - name: Sutting down the servers
+    shell:
+      cmd: "halt -p"
+...

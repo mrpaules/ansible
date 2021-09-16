@@ -1,0 +1,15 @@
+[all]
+mhost[1:4]
+
+[webservers]
+mhost[1:2]
+
+[dbservers]
+mhost3
+
+[fileservers]
+mhost4
+
+[webservers:vars]
+package_name= httpd
+service_name= httpd

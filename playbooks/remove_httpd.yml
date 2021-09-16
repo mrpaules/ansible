@@ -1,0 +1,13 @@
+---
+- name: This Playbook removes the Apache package from Servers.
+  hosts: webservers
+  tasks:
+
+    - name: Test to see if servers are up!
+      ping:
+
+    - name: Remove apache
+      package:
+        name: "{{ package_name }}"
+        state: absent
+...

@@ -1,0 +1,5 @@
+#!/bin/bash
+#Script to copy ssh keys
+for i in `cat inventory`
+do ssh root@$i useradd ansible
+done

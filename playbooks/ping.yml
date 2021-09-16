@@ -1,0 +1,8 @@
+---
+- name: This playbook pings all hosts on the inventory file.
+  hosts: all
+  tasks:
+
+    - name: Test to see if servers are up!
+      ping:
+...

@@ -1,0 +1,5 @@
+---
+- hosts: mhost1
+  vars:
+    package_name: httpd
+    service_name: httpd
