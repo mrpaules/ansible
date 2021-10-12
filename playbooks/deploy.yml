@@ -34,7 +34,7 @@
   hosts: dbservers
   tasks:
 
-  - name: Install posgressql
+  - name: Install postgresql
     yum:
       name: "{{ package_name }}"
       state: latest

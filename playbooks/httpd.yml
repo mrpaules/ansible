@@ -16,8 +16,8 @@
 
     - name: Adding html index file.
       copy:
-        src: /home/ansible/ansible/playbooks/index.html
-        dest: /var/www/html/
+        content: "Welcome to {{ ansible_hostname }} intranet!\n"
+        dest: /var/www/html/index.html
 
     - name: Opening Firewall for Service!
       firewalld:
@@ -50,7 +50,6 @@
         - "Restart firewall & Apache"
         - "Apply SELinux port type"
 
-
   handlers:
     - name: "Apply SELinux port type"
       seport:
@@ -79,4 +78,22 @@
       with_items:
         - firewalld
         - "{{ service_name }}"
+
+- name: The second play
+  hosts: mhost1
+  tasks:
+  - name: Checking the Intranet on mhost1
+    uri:
+      url: http://mhost1.example.com:90
+      return_content: yes
+      status_code: 200
+
+- name: The third play
+  hosts: mhost2
+  tasks:
+  - name: Checking the Intranet on mhost2
+    uri:
+      url: http://mhost2.example.com:90
+      return_content: yes
+      status_code: 200
 ...

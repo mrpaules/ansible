@@ -1,0 +1,15 @@
+---
+- name: Testing the URI module
+  hosts: mhost3
+  tasks:
+    - name: Ensuring the is a wellcome page
+      copy:
+        content: "Welcome to the example.com intranet!\n"
+        dest: /var/www/html/index.html
+
+    - name: Checking the URL
+      uri:
+        url: http://mhost3.example.com
+        return_content: yes
+        status_code: 200
+...

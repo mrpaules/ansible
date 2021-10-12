@@ -1,6 +1,6 @@
 ---
 - name: This Playbook creates the repos needed for software installs.
-  hosts: all 
+  hosts: all, localhost 
   tasks:
 
   - name: Mount media DVD and add entry into fstab
@@ -42,7 +42,7 @@
 
   - name: Copy BaseOS Repo files to remote servers!
     copy:
-      src: /home/ansible/ansible/BaseOS.repo
+      src: /home/ansible/ansible/ansible/BaseOS.repo
       dest: /etc/yum.repos.d/
       owner: root
       group: root
@@ -50,7 +50,7 @@
 
   - name: Copy AppStream Repo files to remote servers!
     copy:
-      src: /home/ansible/ansible/AppStream.repo
+      src: /home/ansible/ansible/ansible/AppStream.repo
       dest: /etc/yum.repos.d/
       owner: root
       group: root

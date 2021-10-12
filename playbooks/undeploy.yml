@@ -1,0 +1,25 @@
+---
+- name: Remove Apache on servers
+  hosts: webservers
+  tasks:
+
+    - name: uninstall apache
+      yum:
+        name: "{{ package_name }}"
+        state: absent
+
+
+- name: Uninstall posgressql
+  hosts: dbservers
+  tasks:
+
+  - name: Uninstall postgresql
+    yum:
+      name: "{{ package_name }}"
+      state: absent
+
+  - name: Remove Postgresql folder
+    file:
+      path: /var/lib/pgsql
+      state: absent
+...

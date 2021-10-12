@@ -1,0 +1,2 @@
+service_name: postgresql
+package_name: postgresql-server
