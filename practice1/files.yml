@@ -1,0 +1,6 @@
+---
+- name: file1
+  checksum: e9f9b899cc7161e1eb0b1e4c042fdfabccf7958c
+- name: file2
+  checksum: 9a7cba0d4a31a687ca756990f5c6873310589c6c
+...

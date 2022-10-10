@@ -1,0 +1,18 @@
+---
+users:
+  - name: john
+    department: developers
+    age: 37
+    comment: 'John Doe'
+    cities:
+      - johannesburg
+      - durban
+  - name: jane
+    department: testers
+    age: 28
+    comment: 'Jane Doe'
+    cities:
+      - bloemfontein
+      - durban
+      - pretoria
+...      
