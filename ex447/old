@@ -1,0 +1,10 @@
+[defaults]
+inventory = inventory
+roles_path = /home/ansible/project/roles:/usr/share/ansible/roles
+timeout = 60
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = false

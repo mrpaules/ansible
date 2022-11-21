@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+          - name: Checking ipaddr filter
+            debug:
+                    msg: "{{ lookup('file', '/tmp/ipaddr.yml') | ipaddr('address') }}"

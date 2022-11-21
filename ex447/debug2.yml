@@ -1,0 +1,4 @@
+---
+- name: Printing the included task message
+  debug:
+          msg: "This is the included task message"

@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  vars:
+          expected: "{{ lookup('file', '/tmp/ipaddr.yml') }}"
+  tasks:
+          - name: Testing file listing
+            become: true
+            copy:
+                    content: "IP: {{ item }} "
+                    dest: /opt/ipaddr-{{ item }}
+            loop: "{{ expected | split('\n') }}"

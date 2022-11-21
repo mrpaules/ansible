@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  tasks:
+          - name: Printing message from original playbook
+            debug:
+                    msg: "This is from the main playbook"
+
+          - name: Including task
+            include_tasks: debug2.yml
+
+- name: Including playbook
+  import_playbook: debug1.yml 

@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+          - name: Printing message from include Playbook
+            debug:
+                    msg: "This is an imported playbook"

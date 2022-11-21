@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  vars:
+          expected: "{{ lookup('file', '/tmp/ipaddr.yml') }}"
+  vars_files:
+          - file_list.yml
+  tasks:
+          - name: Create file
+            file:
+                    path: /tmp/ipaddr.yml
+                    state: touch
+
+          - name: testing fileglob
+            lineinfile:
+                    line: "{{ query('file', item ) | regex_findall('(?<!\\d)(?:\\d{1,3}\\.){3}\\d{1,3}(?!\\d)') }}"
+                    path: /tmp/ipaddr.yml
+            loop: "{{ files }}"
+
+          - name: Editing file
+            become: true
+            replace:
+                    path: /tmp/ipaddr.yml
+                    regexp: "{{ item }}"
+                    replace: ''
+            loop:
+                    - '\['''
+                    - '''\]'
+          
+          - name: Editing file 2
+            become: true
+            replace:
+                    path: /tmp/ipaddr.yml
+                    regexp: '''\, '''
+                    replace: '\n'
+            
+          - name: Testing file listing
+            become: true
+            copy:
+                    content: "IP: {{ item }} "
+                    dest: /opt/ipaddr-{{ item }}
+            loop: "{{ expected | split('\n') }}"

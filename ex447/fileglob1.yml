@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  vars:
+          expected: "{{ lookup('file', '/tmp/ip_output.yml') }}"
+  vars_files:
+          - file_list.yml
+  tasks:
+          - name: create file
+            file:
+                    path: /tmp/ip_output.yml
+                    state: touch
+
+          - name: Extracting IP addresses
+            lineinfile:
+                    path: /tmp/ip_output.yml
+                    line: '{{ query("file", item) | regex_findall("[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+") }}'
+            loop: "{{ files }}"
+
+          - name: Replacing special characters in file
+            replace:
+                    path: /tmp/ip_output.yml
+                    regexp: "{{ item }}"
+                    replace: ''
+            loop:
+                    - '\['''
+                    - '''\]'
+
+          - name: Replacing special characters 2
+            replace:
+                    path: /tmp/ip_output.yml
+                    regexp: '''\, '''
+                    replace: '\n' 
+
+          - name: Writing expected text
+            copy:
+                    content: "IP: {{ item }}"
+                    dest: /opt/ip_output-{{ item }}.yml
+            loop: "{{ expected | split('\n') }}"
+
+

@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  vars_files:
+          - file_list.yml
+  tasks:
+          - name: testing fileglob
+            debug:
+                    msg: "{{ lookup('file', item) | regex_findall('(?<!\\d)(?:\\d{1,3}\\.){3}\\d{1,3}(?!\\d)') }}"
+            loop: "{{ files }}"
+            register: output
+
+          - name: Printing stuff
+            debug:
+                    msg: "{{ output }}"
+            register: output1
+
+          - name: Printing output1
+            debug:
+                    msg: "{{ output1 }}"
+
+          - name: Testing regex search
+            debug:
+                    msg: "We find a match"
+            when: output.results is regex("value")
+
+          - name: Printing data
+            lineinfile:
+                    line: "{{ item }}"
+                    path: /tmp/regex_file.yml
+            loop:
+                    - "{{ output1.msg.results.0.msg }}"
+                    - "{{ output1['msg']['results'][1]['msg'] }}"
+                    - "{{ output1['msg']['results'][2]['msg'] }}"
+            register: output2
+
+
+          - name: Printing data 2
+            copy:
+                    content: "IP: {{ item }}"
+                    dest: /tmp/ipfiles-{{ item }}.ip
+            loop:
+                    - " {{ output2['results'][0]['msg'] }}"
+                    - " {{ output2['results'][1]['msg'] }}"
+                    - " {{ output2['results'][2]['msg'] }}"

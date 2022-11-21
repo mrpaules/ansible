@@ -1,0 +1,10 @@
+---
+- name: Testing filters
+  hosts: localhost
+  vars:
+        expected: "{{ lookup('file', '/tmp/ipaddr.yml')}}"
+  tasks:
+    - name: Extracting IP address
+      debug:
+        msg: "{{ expected | split('\n') }}"
+

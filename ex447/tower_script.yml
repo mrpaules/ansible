@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks:
+          - name: Trigger workflow template job
+            uri:
+                    url: http://localhost/api/v2/workflow_job_templates/11/launch
+                    method: POST
+                    user: "admin"
+                    password: "password"
+                    force_basic_auth: yes
+                    return_content: no
+                    headers:
+                            Content-Type: "application/json"

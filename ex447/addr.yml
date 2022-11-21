@@ -1,0 +1,12 @@
+- hosts: localhost
+  tasks:
+          - name: Task 1 testing
+            set_fact:
+                    server_address: "{{ ansible_facts.default_ipv4.address }}"
+
+          - name: See what we get
+            debug:
+                    msg: "{{ server_address }}"
+...                    
+
+                  
