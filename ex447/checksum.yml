@@ -1,0 +1,41 @@
+---
+- name: Testing file checksum
+  hosts: localhost
+  vars_files:
+          - file_checksum.yml
+  vars:
+          file1: "{{ item }}"
+          file2: "{{ item }}"
+          file3: "{{ item }}"
+  
+  tasks:
+          - name: Getting current checksum
+            stat:
+                    path: "{{ item.key }}"
+            loop: "{{ file_checksum | dict2items }}"
+            register: output
+
+          - name: Printing output
+            debug:
+                    msg: "{{ item.value }}"
+            loop: "{{ file_checksum | dict2items }}" 
+
+          - name: Priting stat output
+            debug:
+                    msg: "{{ item.stat.checksum }}"
+            loop: "{{ output.results }}"
+            register: output1
+
+          - name: Printing output1
+            debug:
+                    msg: "{{ output1 }}"
+
+          - name: Asserting
+            assert:
+                    that: "item == item"
+                    fail_msg: "Checksum not equal"
+                    success_msg: "Checksum matches"
+            loop:
+                   - "{{ file_checksum }}"
+                   - "{{ output1.results }}"
+
